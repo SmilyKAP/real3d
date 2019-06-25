@@ -15,6 +15,10 @@ const appRoutes: Routes = [
     loadChildren: './+render2/render2.module#Render2Module'
   },
   {
+    path: 'render3',
+    loadChildren: './+render3/render3.module#Render3Module'
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'

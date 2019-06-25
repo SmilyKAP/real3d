@@ -7,14 +7,15 @@ import { Subscription } from 'rxjs';
   template: '',
   styles: [':host { width: 100%; height: 100%; display: block;}']
 })
-export class Render2Component implements OnInit, OnDestroy {
+export class Render3Component implements OnInit, OnDestroy {
 
   private canvas: HTMLCanvasElement;
   private hostNative: HTMLElement;
   private gl: WebGL2RenderingContext;
   private subscription: Subscription;
   private aVertexPosition: number;
-  private squareVertexBuffer: WebGLBuffer;
+  private squareVAO: WebGLVertexArrayObject;
+  private indices: number[];
 
   constructor(
     private shader: ShaderService,
@@ -68,24 +69,38 @@ export class Render2Component implements OnInit, OnDestroy {
         (-0.5, -0.5, 0)       (0.5, -0.5, 0)
       */
     const vertices = [
-      // first triangle (V0, V1, V2)
       -0.5, 0.5, 0,
       -0.5, -0.5, 0,
-      0.5, -0.5, 0,
-
-      // second triangle (V0, V2, V3)
-      -0.5, 0.5, 0,
       0.5, -0.5, 0,
       0.5, 0.5, 0
     ];
 
-    // Setting up the VBO
-    this.squareVertexBuffer = this.gl.createBuffer();
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.squareVertexBuffer);
+    // Indices defined in counter-clockwise order
+    this.indices = [0, 1, 2, 0, 2, 3];
+
+    // Create VAO instance
+    this.squareVAO = this.gl.createVertexArray();
+
+    // Bind it so we can work on it
+    this.gl.bindVertexArray(this.squareVAO);
+
+    const squareVertexBuffer = this.gl.createBuffer();
+    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, squareVertexBuffer);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(vertices), this.gl.STATIC_DRAW);
 
+    // Provide instructions for VAO to use data later in draw
+    this.gl.enableVertexAttribArray(this.aVertexPosition);
+    this.gl.vertexAttribPointer(this.aVertexPosition, 3, this.gl.FLOAT, false, 0, 0);
+
+    // Setting up the IBO
+    const squareIndexBuffer = this.gl.createBuffer();
+    this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
+    this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.indices), this.gl.STATIC_DRAW);
+
     // Clean
+    this.gl.bindVertexArray(null);
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
+    this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, null);
   }
 
   private draw(): void {
@@ -94,16 +109,13 @@ export class Render2Component implements OnInit, OnDestroy {
     // Clear the scene
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-    // Use the buffers we've constructed
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.squareVertexBuffer);
-    this.gl.vertexAttribPointer(this.aVertexPosition, 3, this.gl.FLOAT, false, 0, 0);
-    this.gl.enableVertexAttribArray(this.aVertexPosition);
+    // Bind the VAO
+    this.gl.bindVertexArray(this.squareVAO);
 
-    // Draw to the scene using triangle primitives and the number of vertices
-    // that define our geometry (i.e. six in this case)
-    this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
+    // Draw to the scene using triangle primitives
+    this.gl.drawElements(this.gl.TRIANGLES, this.indices.length, this.gl.UNSIGNED_SHORT, 0);
 
     // Clean
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
+    this.gl.bindVertexArray(null);
   }
 }
