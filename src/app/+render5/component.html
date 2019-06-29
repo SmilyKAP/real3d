@@ -1,0 +1,31 @@
+<canvas #canvas>
+  Your browser does not support the HTML5 canvas element.
+</canvas>
+
+<div info>
+  <table>
+    <tr>
+      <th>Buffer</th>
+      <th>Name</th>
+      <th>Size</th>
+      <th>Usage</th>
+    </tr>
+    <tr>
+      <td>VBO:</td>
+      <td>{{vboName}}</td>
+      <td>{{vboSize}}</td>
+      <td>{{vboUsage}}</td>
+    </tr>
+    <tr>
+      <td>IBO:</td>
+      <td>{{iboName}}</td>
+      <td>{{iboSize}}</td>
+      <td>{{iboUsage}}</td>
+    </tr>
+  </table>
+
+  <ul>
+    <li>Is vertices a VBO? <strong>{{isVerticesVbo}}</strong></li>
+    <li>Is coneVertexBuffer a VBO? <strong>{{isConeVertexBufferVbo}}</strong></li>
+  </ul>
+</div>

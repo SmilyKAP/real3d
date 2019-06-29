@@ -16,7 +16,23 @@ const appRoutes: Routes = [
   },
   {
     path: 'render3',
-    loadChildren: './+render3/render3.module#Render3Module'
+    loadChildren: './+render3/module#Module'
+  },
+  {
+    path: 'render4',
+    loadChildren: './+render4/module#Module'
+  },
+  {
+    path: 'render5',
+    loadChildren: './+render5/module#Module'
+  },
+  {
+    path: 'render6',
+    loadChildren: './+render6/module#Module'
+  },
+  {
+    path: 'render7',
+    loadChildren: './+render7/module#Module'
   },
   {
     path: '',

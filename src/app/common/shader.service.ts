@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-
-const SHADERS_PATH = './assets/shaders/';
-const VERTEX_SHADER = 'vertex.glsl';
-const FRAGMENT_SHADER = 'fragment.glsl';
+import { SHADERS_PATH, VERTEX_SHADER, FRAGMENT_SHADER } from './consts';
 
 @Injectable()
 export class ShaderService {
