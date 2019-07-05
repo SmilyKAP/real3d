@@ -125,6 +125,7 @@ export class Component implements OnInit, AfterViewInit,OnDestroy {
     gl.vertexAttribPointer(this.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(this.aVertexPosition);
 
+    gl.bindBuffer(gl.ARRAY_BUFFER, null);
     this.coneIndexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.coneIndexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.indices), gl.STATIC_DRAW);

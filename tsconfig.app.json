@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": ["webgl2"]
+    "types": ["webgl2", "node"]
   },
   "include": [
     "src/**/*.ts"

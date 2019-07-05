@@ -35,6 +35,22 @@ const appRoutes: Routes = [
     loadChildren: './+render7/module#Module'
   },
   {
+    path: 'render8',
+    loadChildren: './+render8/module#Module'
+  },
+  {
+    path: 'light1',
+    loadChildren: './+light1/module#Module'
+  },
+  {
+    path: 'light2',
+    loadChildren: './+light2/module#Module'
+  },
+  {
+    path: 'light3',
+    loadChildren: './+light3/module#Module'
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
