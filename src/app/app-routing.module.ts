@@ -51,6 +51,22 @@ const appRoutes: Routes = [
     loadChildren: './+light3/module#Module'
   },
   {
+    path: 'light4',
+    loadChildren: './+light4/module#Module'
+  },
+  {
+    path: 'light5',
+    loadChildren: './+light5/module#Module'
+  },
+  {
+    path: 'light6',
+    loadChildren: './+light6/module#Module'
+  },
+  {
+    path: 'light7',
+    loadChildren: './+light7/module#Module'
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
